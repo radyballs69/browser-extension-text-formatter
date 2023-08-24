@@ -1,0 +1,25 @@
+{
+	"manifest_version": 3,
+	"name": "Text Formatter",
+	"description": "This extension about formatting text.",
+	"version": "1.0",
+	"author": "Rady",
+	"action": {
+		"default_title": "Text Formatter",
+		"default_icon": {
+			"16": "src/images/text-16.png",
+			"24": "src/images/text-24.png",
+			"32": "src/images/text-32.png",
+			"64": "src/images/text-64.png",
+			"128": "src/images/text-128.png"
+		},
+		"default_popup": "src/index.html"
+	},
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["src/scripts/index.js"],
+			"run_at": "document_start"
+		}
+	]
+}

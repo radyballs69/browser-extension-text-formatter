@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Text Formatter</title>
+
+		<!-- Tailwind CSS via cdn -->
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css"
+		/>
+		<style>
+			#result h1 {
+				font-size: 1.875rem;
+				line-height: 2.25rem;
+			}
+			#result h2 {
+				font-size: 1.5rem;
+				line-height: 2rem;
+			}
+			#result h3 {
+				font-size: 1.25rem;
+				line-height: 1.75rem;
+			}
+			#result h4 {
+				font-size: 1.125rem;
+				line-height: 1.75rem;
+			}
+		</style>
+	</head>
+	<body style="min-width: 700px">
+		<div class="p-5 w-full">
+			<h1 class="text-3xl font-medium text-center mb-3">Text Formatter!</h1>
+			<div class="mb-3">
+				<div class="flex justify-between items-center mb-2">
+					<div>
+						<label for="text" class="block mb-2 font-medium text-gray-900"
+							>Paste your text here</label
+						>
+					</div>
+					<button
+						type="button"
+						id="clear_text"
+						class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
+						title="Clear text"
+					>
+						Clear
+					</button>
+				</div>
+				<textarea
+					id="text"
+					rows="4"
+					class="block p-2.5 w-full text-gray-900 bg-gray-50 rounded-md border border-gray-300 focus:ring-blue-500 focus:border-blue-5000"
+					placeholder="Paste your text here..."
+					autofocus
+				></textarea>
+				<div
+					class="text-red-500 text-sm mt-2 font-medium"
+					id="alert_text"
+				></div>
+			</div>
+			<div class="mb-3">
+				<h2 class="text-center text-xl font-medium">Format & Styles</h2>
+				<div class="grid w-full gap-4 grid-cols-2 mb-3">
+					<div>
+						<label for="format" class="block mb-2 font-medium text-gray-900"
+							>Text format</label
+						>
+						<select
+							id="format"
+							class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						>
+							<option value="p" selected>Normal</option>
+							<option value="h1">H1 Heading</option>
+							<option value="h2">H2 Heading</option>
+							<option value="h3">H3 Heading</option>
+							<option value="h4">H4 Heading</option>
+							<option value="h5">H5 Heading</option>
+						</select>
+					</div>
+					<div>
+						<label for="case" class="block mb-2 font-medium text-gray-900"
+							>Text case</label
+						>
+						<select
+							id="case"
+							class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						>
+							<option value="normal" selected>Normal</option>
+							<option value="capitalize">Capitalize</option>
+							<option value="sentence">Sentence</option>
+							<option value="lowercase">Lower</option>
+							<option value="uppercase">Upper</option>
+						</select>
+					</div>
+				</div>
+				<div class="grid w-full gap-4 grid-cols-2">
+					<div class="flex">
+						<div class="flex items-center mr-4">
+							<input
+								id="bold"
+								name="style[]"
+								type="checkbox"
+								value="font-bold"
+								class="style w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-md focus:ring-blue-500"
+							/>
+							<label for="bold" class="ml-2 font-medium text-gray-900 font-bold"
+								>Bold</label
+							>
+						</div>
+						<div class="flex items-center mr-4">
+							<input
+								id="italic"
+								name="style[]"
+								type="checkbox"
+								value="italic"
+								class="style w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+							/>
+							<label for="italic" class="ml-2 font-medium text-gray-900 italic"
+								>Italic</label
+							>
+						</div>
+						<div class="flex items-center mr-4">
+							<input
+								id="underline"
+								name="style[]"
+								type="checkbox"
+								value="underline"
+								class="style w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+							/>
+							<label
+								for="underline"
+								class="ml-2 font-medium text-gray-900 underline"
+								>Underline</label
+							>
+						</div>
+					</div>
+					<div class="flex justify-end">
+						<button
+							type="button"
+							id="btn_format"
+							class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
+							title="Format text"
+						>
+							Format
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="mb-3">
+				<label for="result" class="block mb-2 font-medium text-gray-900"
+					>Result here:
+				</label>
+				<div
+					class="mb-5 p-2.5 w-full bg-gray-50 rounded-md border border-gray-300"
+					style="min-height: 7rem"
+					id="result"
+				></div>
+				<div class="flex justify-center">
+					<button
+						type="button"
+						id="copy_text_result"
+						class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
+						title="Copy to clipboard"
+					>
+						<svg
+							class="w-4 h-4 text-white-100 mr-2"
+							aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 18 20"
+						>
+							<path
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="m7.708 2.292.706-.706A2 2 0 0 1 9.828 1h6.239A.97.97 0 0 1 17 2v12a.97.97 0 0 1-.933 1H15M6 5v4a1 1 0 0 1-1 1H1m11-4v12a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V9.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 5h5.239A.97.97 0 0 1 12 6Z"
+							/>
+						</svg>
+						Copy
+					</button>
+				</div>
+				<div class="text-center text-blue-500 mt-3" id="copy_text_alert"></div>
+			</div>
+		</div>
+
+		<script src="scripts/index.js"></script>
+	</body>
+</html>
